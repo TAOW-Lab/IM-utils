@@ -118,5 +118,12 @@
       "@semantic-release/npm",
       "@semantic-release/github"
     ]
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.28.1-beta.2",
+    "@transmute/ed25519-signature-2018": "^0.7.0-unstable.81",
+    "@transmute/jsonld-document-loader": "^0.7.0-unstable.81",
+    "@transmute/vc.js": "^0.7.0-unstable.81",
+    "axios": "^1.5.1"
   }
 }
