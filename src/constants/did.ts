@@ -1,6 +1,7 @@
 export const VERIFICATION_METHOD = {
   ed25519: 'Ed25519VerificationKey2018',
 };
+export type VERIFICATION_METHOD_TYPE = 'Ed25519VerificationKey2018';
 
 export const MULTIBASE_PREFIX = {
   base58btc: 'z',

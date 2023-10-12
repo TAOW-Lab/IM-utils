@@ -1,3 +1,4 @@
+global.Buffer = require('buffer').Buffer;
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
@@ -10,9 +11,17 @@ module.exports = {
     'ts-jest': {
       diagnostics: false,
       isolatedModules: true,
+      Buffer,
     },
   },
   moduleNameMapper: {
-    "axios": "axios/dist/node/axios.cjs"
+    "axios": "axios/dist/node/axios.cjs",
   },
+  setupFiles: [
+    require.resolve("buffer/"),
+    require.resolve("crypto-browserify"),
+  ],
 };
+
+
+

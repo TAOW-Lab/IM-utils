@@ -52,7 +52,9 @@
     "@types/node": "^12.20.11",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "buffer": "^6.0.3",
     "conventional-changelog-conventionalcommits": "^5.0.0",
+    "crypto-browserify": "^3.12.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-node": "^11.1.0",
@@ -125,7 +127,6 @@
     "@transmute/ed25519-signature-2018": "^0.7.0-unstable.81",
     "@transmute/jsonld-document-loader": "^0.7.0-unstable.81",
     "@transmute/vc.js": "^0.7.0-unstable.81",
-    "axios": "^1.5.1",
-    "Buffer": "^0.0.0"
+    "axios": "^1.5.1"
   }
 }

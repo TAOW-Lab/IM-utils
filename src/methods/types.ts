@@ -3,10 +3,11 @@ import {
   VerificationResult,
 } from '@transmute/vc.js/dist/types';
 import { VerifiableCredential } from '@transmute/vc.js/dist/types/VerifiableCredential';
+import { VERIFICATION_METHOD_TYPE } from './../constants';
 
 export type KeyPairRaw = {
   id: string;
-  type: string;
+  type: VERIFICATION_METHOD_TYPE;
   controller: string;
   privateKeyBase58: string;
   publicKeyBase58: string;
