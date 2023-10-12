@@ -3,23 +3,12 @@ import {
   Ed25519Signature2018,
 } from '@transmute/ed25519-signature-2018';
 import { verifiable } from '@transmute/vc.js';
-import {
-  CreateCredentialResult,
-  VerificationResult,
-} from '@transmute/vc.js/dist/types';
-import { VerifiableCredential } from '@transmute/vc.js/dist/types/VerifiableCredential';
 
 import { customDocumentLoader } from './../utils';
+import { KeyPairRaw, VCData, VCResult, VerifyResult } from './types';
+import { BaseMethod } from './base';
 
-export type KeyPairRaw = {
-  id: string;
-  type: string;
-  controller: string;
-  privateKeyBase58: string;
-  publicKeyBase58: string;
-};
-
-export class Ed25519 {
+export class Ed25519 implements BaseMethod {
   private suite: Ed25519Signature2018[] = [];
   constructor(key?: KeyPairRaw) {
     void this.init(key);
@@ -37,9 +26,7 @@ export class Ed25519 {
     return;
   }
 
-  async createVc(
-    credential: VerifiableCredential
-  ): Promise<CreateCredentialResult> {
+  async createVc(credential: VCData): Promise<VCResult> {
     const vc = await verifiable.credential.create({
       credential,
       documentLoader: customDocumentLoader,
@@ -49,9 +36,7 @@ export class Ed25519 {
     return vc;
   }
 
-  async verifyVc(
-    credential: VerifiableCredential
-  ): Promise<VerificationResult> {
+  async verifyVc(credential: VCData): Promise<VerifyResult> {
     const result = await verifiable.credential.verify({
       credential,
       documentLoader: customDocumentLoader,
