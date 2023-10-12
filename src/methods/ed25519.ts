@@ -1,7 +1,7 @@
 import {
   Ed25519VerificationKey2018,
   Ed25519Signature2018,
-} from '@transmute/ed25519-signature-2018/dist';
+} from '@transmute/ed25519-signature-2018';
 import { verifiable } from '@transmute/vc.js';
 import {
   CreateCredentialResult,
