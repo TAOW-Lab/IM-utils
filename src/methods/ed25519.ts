@@ -11,6 +11,7 @@ import { BaseMethod } from './base';
 export class Ed25519 implements BaseMethod {
   private suite: Ed25519Signature2018[] = [];
   constructor(key?: KeyPairRaw) {
+    console.log('🚀 ~ file: ed25519.ts:14 ~ Ed25519 ~ constructor ~ key:', key);
     void this.init(key);
   }
 
