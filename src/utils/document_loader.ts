@@ -1,16 +1,20 @@
 import axios from 'axios';
 
 import { contexts } from './../constants';
+import { DocumentContext } from './../common';
+import { Resolver } from '..';
 
-type DocumentContext = {
-  [key: string]: string | Record<string, string>;
-};
 export const customDocumentLoader = async (
-  url: string
+  url: string,
+  resolver: Resolver = {
+    resolveContext,
+    resolveDID,
+  }
 ): Promise<{
   documentUrl: string;
   document: DocumentContext;
 }> => {
+  const { resolveDID, resolveContext } = resolver;
   // const { document } = await documentLoader(url);
   let document: DocumentContext = {};
   const existed = Object.keys(contexts).includes(url);
