@@ -10,6 +10,6 @@ export const MULTIBASE_PREFIX = {
 };
 
 export const SOLANA_DID_PREFIX = {
-  devnet: 'did:solana:devnet:',
-  mainnet: 'did:solana:mainnet:',
+  devnet: 'did:solana:devnet',
+  mainnet: 'did:solana:mainnet',
 };
