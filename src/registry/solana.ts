@@ -7,7 +7,10 @@ import {
   KeyAgreementMethod,
 } from './types';
 
-import IDL from '../constants/idl/solana.json';
+import {
+  SolanaVerifiableRegistryType,
+  SolanaVerifiableRegistry,
+} from '../constants/idl';
 import SOLKey from '../constants/solana.key.json';
 
 import {
@@ -22,11 +25,11 @@ import { BN, utils } from '@coral-xyz/anchor';
 
 export class SolanaRegistry implements BaseRegistry {
   public programId: web3.PublicKey;
-  private program: Program;
+  private program: Program<SolanaVerifiableRegistryType>;
   constructor(programId: string, provider: AnchorProvider) {
     this.programId = new web3.PublicKey(programId);
-    const program = new Program(
-      IDL as Idl,
+    const program = new Program<SolanaVerifiableRegistryType>(
+      SolanaVerifiableRegistry as SolanaVerifiableRegistryType,
       new web3.PublicKey(programId),
       provider
     );
@@ -36,8 +39,8 @@ export class SolanaRegistry implements BaseRegistry {
   async getContextDID(did: string): Promise<DIDDocument> {
     const account = await this.program.account.did.fetch(did);
     return {
-      id: did,
       ...account,
+      id: did,
     };
   }
 
@@ -46,7 +49,7 @@ export class SolanaRegistry implements BaseRegistry {
     controller: string,
     pdaDid: string,
     pdaDidList: string,
-    verificationMethod: VerificationMethod,
+    verificationMethod: VerificationMethod | any,
     authenticationMethod: AuthenticationMethod,
     assertionMethod: AssertionMethod,
     keyAgreementMethod: KeyAgreementMethod
@@ -74,6 +77,7 @@ export class SolanaRegistry implements BaseRegistry {
 
 void (async () => {
   const wallet = new Wallet(web3.Keypair.fromSecretKey(new Uint8Array(SOLKey)));
+  console.log('🚀 ~ file: solana.ts:77 ~ void ~ wallet:', wallet.publicKey);
   const connection = new web3.Connection(web3.clusterApiUrl('devnet'));
   const provider = new AnchorProvider(connection, wallet, {
     commitment: 'finalized',
@@ -87,12 +91,13 @@ void (async () => {
   // );
   // console.log('🚀 ~ file: solana.ts:49 ~ did:', did);
 
-  const id = `${SOLANA_DID_PREFIX.devnet}:issuer`;
-  const controller = `${SOLANA_DID_PREFIX.devnet}:issuer`;
+  const id = `${SOLANA_DID_PREFIX.devnet}:family`;
+  const controller = `${SOLANA_DID_PREFIX.devnet}:family`;
   const [pdaDid] = web3.PublicKey.findProgramAddressSync(
     [utils.bytes.utf8.encode('did'), utils.bytes.utf8.encode(id)],
     registry.programId
   );
+  console.log('🚀 ~ file: solana.ts:96 ~ void ~ pdaDid:', pdaDid);
   const [pdaDidList] = web3.PublicKey.findProgramAddressSync(
     [utils.bytes.utf8.encode('list'), wallet.publicKey.toBytes()],
     registry.programId
@@ -103,7 +108,7 @@ void (async () => {
   const verificationMethod: VerificationMethod = {
     id: key1,
     created: new BN(Date.now()) as number,
-    vType: { Ed25519VerificationKey2018: 1 },
+    rType: { ed25519VerificationKey2018: 1 } as any,
     publicKey: wallet1.publicKey.toBase58(),
     publicKeyBase58: wallet1.publicKey.toBase58(),
   } as VerificationMethod;
