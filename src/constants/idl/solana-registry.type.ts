@@ -497,16 +497,8 @@ export type SolanaVerifiableRegistryType = {
             type: 'i64';
           },
           {
-            name: 'publicKey';
-            type: {
-              option: 'string';
-            };
-          },
-          {
-            name: 'publicKeyBase58';
-            type: {
-              option: 'string';
-            };
+            name: 'publicKeyMultibase';
+            type: 'string';
           }
         ];
       };
@@ -569,6 +561,9 @@ export type SolanaVerifiableRegistryType = {
           },
           {
             name: 'Ed25519VerificationKey2018';
+          },
+          {
+            name: 'EcdsaSecp256k1VerificationKey2019';
           }
         ];
       };

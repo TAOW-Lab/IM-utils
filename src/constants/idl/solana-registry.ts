@@ -325,7 +325,7 @@ export const SolanaVerifiableRegistry = {
   ],
   accounts: [
     {
-      name: 'did',
+      name: 'Did',
       type: {
         kind: 'struct',
         fields: [
@@ -381,7 +381,7 @@ export const SolanaVerifiableRegistry = {
       },
     },
     {
-      name: 'listDid',
+      name: 'ListDid',
       type: {
         kind: 'struct',
         fields: [
@@ -399,7 +399,7 @@ export const SolanaVerifiableRegistry = {
       },
     },
     {
-      name: 'vcList',
+      name: 'VCList',
       type: {
         kind: 'struct',
         fields: [
@@ -417,7 +417,7 @@ export const SolanaVerifiableRegistry = {
       },
     },
     {
-      name: 'vc',
+      name: 'VC',
       type: {
         kind: 'struct',
         fields: [
@@ -497,16 +497,8 @@ export const SolanaVerifiableRegistry = {
             type: 'i64',
           },
           {
-            name: 'publicKey',
-            type: {
-              option: 'string',
-            },
-          },
-          {
-            name: 'publicKeyBase58',
-            type: {
-              option: 'string',
-            },
+            name: 'publicKeyMultibase',
+            type: 'string',
           },
         ],
       },
@@ -569,6 +561,9 @@ export const SolanaVerifiableRegistry = {
           },
           {
             name: 'Ed25519VerificationKey2018',
+          },
+          {
+            name: 'EcdsaSecp256k1VerificationKey2019',
           },
         ],
       },

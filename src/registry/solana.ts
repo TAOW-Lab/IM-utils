@@ -20,7 +20,7 @@ import {
   Program,
   Wallet,
 } from '@project-serum/anchor';
-import { SOLANA_DID_PREFIX } from '..';
+import { SOLANA_DID_PREFIX, encodeMultiBase } from '..';
 import { BN, utils } from '@coral-xyz/anchor';
 
 export class SolanaRegistry implements BaseRegistry {
@@ -76,57 +76,65 @@ export class SolanaRegistry implements BaseRegistry {
 }
 
 void (async () => {
-  const wallet = new Wallet(web3.Keypair.fromSecretKey(new Uint8Array(SOLKey)));
-  console.log('🚀 ~ file: solana.ts:77 ~ void ~ wallet:', wallet.publicKey);
-  const connection = new web3.Connection(web3.clusterApiUrl('devnet'));
-  const provider = new AnchorProvider(connection, wallet, {
-    commitment: 'finalized',
-  });
-  const programId = new web3.PublicKey(
-    'E5zT3q81FxiKDwmocEUEjPshNsNBJnMZHPyqCeG5FirG'
-  );
-  const registry = new SolanaRegistry(programId.toString(), provider);
-  // const did = await registry.getContextDID(
-  //   '66XtzALc8Vs1smYBzDGg32NhTyc8XxM825scbrmzuquf'
-  // );
-  // console.log('🚀 ~ file: solana.ts:49 ~ did:', did);
+  try {
+    const wallet = new Wallet(
+      web3.Keypair.fromSecretKey(new Uint8Array(SOLKey))
+    );
+    const connection = new web3.Connection(web3.clusterApiUrl('devnet'));
+    const provider = new AnchorProvider(connection, wallet, {
+      commitment: 'finalized',
+    });
+    const programId = new web3.PublicKey(
+      'E5zT3q81FxiKDwmocEUEjPshNsNBJnMZHPyqCeG5FirG'
+    );
+    const registry = new SolanaRegistry(programId.toString(), provider);
+    // const did = await registry.getContextDID(
+    //   '66XtzALc8Vs1smYBzDGg32NhTyc8XxM825scbrmzuquf'
+    // );
+    // console.log('🚀 ~ file: solana.ts:49 ~ did:', did);
 
-  const id = `${SOLANA_DID_PREFIX.devnet}:family`;
-  const controller = `${SOLANA_DID_PREFIX.devnet}:family`;
-  const [pdaDid] = web3.PublicKey.findProgramAddressSync(
-    [utils.bytes.utf8.encode('did'), utils.bytes.utf8.encode(id)],
-    registry.programId
-  );
-  console.log('🚀 ~ file: solana.ts:96 ~ void ~ pdaDid:', pdaDid);
-  const [pdaDidList] = web3.PublicKey.findProgramAddressSync(
-    [utils.bytes.utf8.encode('list'), wallet.publicKey.toBytes()],
-    registry.programId
-  );
-  const wallet1 = web3.Keypair.generate();
-  const key1 = `${id}#${wallet1.publicKey.toBase58()}`;
+    const id = `${SOLANA_DID_PREFIX.devnet}:116nvl`;
+    const controller = `${SOLANA_DID_PREFIX.devnet}:116nvl`;
+    const [pdaDid] = web3.PublicKey.findProgramAddressSync(
+      [utils.bytes.utf8.encode('did'), utils.bytes.utf8.encode(id)],
+      registry.programId
+    );
+    console.log('🚀 ~ file: solana.ts:96 ~ void ~ pdaDid:', pdaDid);
+    const [pdaDidList] = web3.PublicKey.findProgramAddressSync(
+      [utils.bytes.utf8.encode('list'), wallet.publicKey.toBytes()],
+      registry.programId
+    );
+    const wallet1 = web3.Keypair.fromSecretKey(new Uint8Array(SOLKey));
+    const key1 = `${id}#${wallet1.publicKey.toBase58()}`;
 
-  const verificationMethod: VerificationMethod = {
-    id: key1,
-    created: new BN(Date.now()),
-    rType: { ed25519VerificationKey2018: 1 } as any,
-    publicKey: wallet1.publicKey.toBase58(),
-    publicKeyBase58: wallet1.publicKey.toBase58(),
-  } as VerificationMethod;
-  const authenticationMethod: string[] = [key1];
-  const assertionMethod: string[] = [key1];
-  const keyAgreementMethod: string[] = [key1];
-  const initDid = await registry.createDID(
-    id,
-    controller,
-    pdaDid.toString(),
-    pdaDidList.toString(),
-    verificationMethod,
-    authenticationMethod,
-    assertionMethod,
-    keyAgreementMethod
-  );
-  console.log('🚀 ~ file: solana.ts:111 ~ initDid:', initDid);
+    const verificationMethod: VerificationMethod = {
+      id: key1,
+      created: new BN(Date.now()),
+      rType: { ed25519VerificationKey2018: {} } as any,
+      publicKeyMultibase: encodeMultiBase(
+        wallet1.publicKey.toBase58(),
+        'base58btc'
+      ),
+    } as VerificationMethod;
 
-  const did = await registry.getContextDID(pdaDid.toBase58());
-  console.log('🚀 ~ file: solana.ts:49 ~ did:', did.verificationMethod);
+    const authenticationMethod: string[] = [key1];
+    const assertionMethod: string[] = [key1];
+    const keyAgreementMethod: string[] = [key1];
+    const initDid = await registry.createDID(
+      id,
+      controller,
+      pdaDid.toString(),
+      pdaDidList.toString(),
+      verificationMethod,
+      authenticationMethod,
+      assertionMethod,
+      keyAgreementMethod
+    );
+    console.log('🚀 ~ file: solana.ts:111 ~ initDid:', initDid);
+
+    const did = await registry.getContextDID(pdaDid.toBase58());
+    console.log('🚀 ~ file: solana.ts:49 ~ did:', did.verificationMethod);
+  } catch (error) {
+    console.log('🚀 ~ file: solana.ts:135 ~ void ~ error:', error);
+  }
 })();

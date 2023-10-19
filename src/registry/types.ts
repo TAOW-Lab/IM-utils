@@ -10,6 +10,7 @@ export type VerificationMethod = {
   id: string;
   created: number | BN;
   rType: { [keyof in VERIFICATION_METHOD_TYPE]: unknown } | any;
+  publicKeyMultibase: string;
   publicKey?: string;
   publicKeyBase58?: string;
 };
