@@ -45,3 +45,26 @@ export const decodeMultiBase = (data: string): Buffer => {
     }
   }
 };
+
+export const encodeMultiBase = (
+  data: string,
+  type: keyof typeof MULTIBASE_PREFIX
+): string => {
+  switch (type) {
+    case MULTIBASE_PREFIX.base64: {
+      return MULTIBASE_PREFIX.base64 + data;
+    }
+    // case MULTIBASE_PREFIX.base64url: {
+    //   return Buffer.from(encodedData, 'base64url');
+    // }
+    case MULTIBASE_PREFIX.base58btc: {
+      return MULTIBASE_PREFIX.base58btc + data;
+    }
+    case MULTIBASE_PREFIX.hex: {
+      return MULTIBASE_PREFIX.hex + data;
+    }
+    default: {
+      throw new Error('Unsupported multibase prefix');
+    }
+  }
+};
