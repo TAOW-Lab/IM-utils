@@ -488,9 +488,7 @@ export type SolanaVerifiableRegistryType = {
           },
           {
             name: 'rType';
-            type: {
-              defined: 'VerificationType';
-            };
+            type: 'string';
           },
           {
             name: 'created';

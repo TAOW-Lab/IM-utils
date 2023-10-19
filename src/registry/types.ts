@@ -9,7 +9,7 @@ export type DIDDocument = {
 export type VerificationMethod = {
   id: string;
   created: number | BN;
-  rType: { [keyof in VERIFICATION_METHOD_TYPE]: unknown } | any;
+  rType: VERIFICATION_METHOD_TYPE | string;
   type?: VERIFICATION_METHOD_TYPE;
   publicKeyMultibase: string;
   publicKey?: string;

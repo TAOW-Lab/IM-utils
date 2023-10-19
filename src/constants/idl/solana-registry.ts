@@ -325,7 +325,7 @@ export const SolanaVerifiableRegistry = {
   ],
   accounts: [
     {
-      name: 'Did',
+      name: 'did',
       type: {
         kind: 'struct',
         fields: [
@@ -381,7 +381,7 @@ export const SolanaVerifiableRegistry = {
       },
     },
     {
-      name: 'ListDid',
+      name: 'listDid',
       type: {
         kind: 'struct',
         fields: [
@@ -399,7 +399,7 @@ export const SolanaVerifiableRegistry = {
       },
     },
     {
-      name: 'VCList',
+      name: 'vcList',
       type: {
         kind: 'struct',
         fields: [
@@ -417,7 +417,7 @@ export const SolanaVerifiableRegistry = {
       },
     },
     {
-      name: 'VC',
+      name: 'vc',
       type: {
         kind: 'struct',
         fields: [
@@ -488,9 +488,7 @@ export const SolanaVerifiableRegistry = {
           },
           {
             name: 'rType',
-            type: {
-              defined: 'VerificationType',
-            },
+            type: 'string',
           },
           {
             name: 'created',
