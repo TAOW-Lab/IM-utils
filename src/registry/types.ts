@@ -1,3 +1,4 @@
+import { BN } from '@coral-xyz/anchor';
 import { VERIFICATION_METHOD_TYPE } from '../constants';
 
 export type DIDDocument = {
@@ -7,7 +8,7 @@ export type DIDDocument = {
 
 export type VerificationMethod = {
   id: string;
-  created: number;
+  created: number | BN;
   rType: { [keyof in VERIFICATION_METHOD_TYPE]: unknown } | any;
   publicKey?: string;
   publicKeyBase58?: string;

@@ -48,6 +48,7 @@
   "devDependencies": {
     "@ryansonshine/commitizen": "^4.2.8",
     "@ryansonshine/cz-conventional-changelog": "^3.3.4",
+    "@types/elliptic": "^6.4.16",
     "@types/jest": "^27.5.2",
     "@types/node": "^12.20.11",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
@@ -127,6 +128,7 @@
     "@transmute/ed25519-signature-2018": "^0.7.0-unstable.81",
     "@transmute/jsonld-document-loader": "^0.7.0-unstable.81",
     "@transmute/vc.js": "^0.7.0-unstable.81",
-    "axios": "^1.5.1"
+    "axios": "^1.5.1",
+    "elliptic": "^6.5.4"
   }
 }

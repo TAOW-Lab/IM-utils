@@ -107,7 +107,7 @@ void (async () => {
 
   const verificationMethod: VerificationMethod = {
     id: key1,
-    created: new BN(Date.now()) as number,
+    created: new BN(Date.now()),
     rType: { ed25519VerificationKey2018: 1 } as any,
     publicKey: wallet1.publicKey.toBase58(),
     publicKeyBase58: wallet1.publicKey.toBase58(),
