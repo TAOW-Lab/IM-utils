@@ -1,4 +1,4 @@
-import { ec as EC } from 'elliptic';
+import { ec as EC, eddsa } from 'elliptic';
 
 import { MULTIBASE_PREFIX, VERIFICATION_METHOD } from '../constants';
 import { utils } from '@coral-xyz/anchor';
@@ -6,15 +6,15 @@ import { utils } from '@coral-xyz/anchor';
 export const keyFromPublicKey = (
   publicKey: Buffer,
   keyType: string
-): EC.KeyPair => {
-  switch (keyType) {
-    case VERIFICATION_METHOD.secp256k1: {
+): EC.KeyPair | eddsa.KeyPair => {
+  switch (keyType.toLowerCase()) {
+    case VERIFICATION_METHOD.secp256k1.toLowerCase(): {
       const ec = new EC('secp256k1');
       const uncompressedKey = [4, ...publicKey];
       return ec.keyFromPublic(uncompressedKey);
     }
-    case VERIFICATION_METHOD.ed25519: {
-      const ec = new EC('ed25519');
+    case VERIFICATION_METHOD.ed25519.toLowerCase(): {
+      const ec = new eddsa('ed25519');
       return ec.keyFromPublic(publicKey);
     }
     default: {
