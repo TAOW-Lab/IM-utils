@@ -93,8 +93,8 @@ void (async () => {
     // );
     // console.log('🚀 ~ file: solana.ts:49 ~ did:', did);
 
-    const id = `${SOLANA_DID_PREFIX.devnet}:116nvl`;
-    const controller = `${SOLANA_DID_PREFIX.devnet}:116nvl`;
+    const id = `${SOLANA_DID_PREFIX.devnet}:116nvlp19`;
+    const controller = `${SOLANA_DID_PREFIX.devnet}:116nvlp19`;
     const [pdaDid] = web3.PublicKey.findProgramAddressSync(
       [utils.bytes.utf8.encode('did'), utils.bytes.utf8.encode(id)],
       registry.programId
@@ -105,6 +105,14 @@ void (async () => {
       registry.programId
     );
     const wallet1 = web3.Keypair.fromSecretKey(new Uint8Array(SOLKey));
+    console.log(
+      '🚀 ~ file: solana.ts:108 ~ void ~ wallet1:',
+      Buffer.from(wallet1.publicKey.toBuffer()).toString('hex')
+    );
+    console.log(
+      '🚀 ~ file: solana.ts:108 ~ void ~ wallet1:',
+      Buffer.from(wallet1.secretKey).toString('hex')
+    );
     const key1 = `${id}#${wallet1.publicKey.toBase58()}`;
 
     const verificationMethod: VerificationMethod = {
