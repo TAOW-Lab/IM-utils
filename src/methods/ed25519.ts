@@ -47,45 +47,45 @@ export class Ed25519 implements BaseMethod {
   }
 }
 
-void (async () => {
-  const issuer = 'did:solana:issuer';
-  const key1 = issuer + '#key-1';
-  const raw = web3.Keypair.generate();
-  const keyPair = {
-    id: key1,
-    type: 'Ed25519VerificationKey2018',
-    controller: issuer,
-    publicKeyBase58: raw.publicKey.toBase58(),
-    privateKeyBase58: utils.bytes.bs58.encode(raw.secretKey),
-  } as KeyPairRaw;
-  const ed25519 = new Ed25519({
-    resolveContext: resolveContext,
-    resolveDID: did => {
-      console.log('🚀 ~ file: ed25519.ts:64 ~ did:', did);
-      return resolveDID(did);
-    },
-  });
-  await ed25519.init(keyPair);
+// void (async () => {
+//   const issuer = 'did:solana:issuer';
+//   const key1 = issuer + '#key-1';
+//   const raw = web3.Keypair.generate();
+//   const keyPair = {
+//     id: key1,
+//     type: 'Ed25519VerificationKey2018',
+//     controller: issuer,
+//     publicKeyBase58: raw.publicKey.toBase58(),
+//     privateKeyBase58: utils.bytes.bs58.encode(raw.secretKey),
+//   } as KeyPairRaw;
+//   const ed25519 = new Ed25519({
+//     resolveContext: resolveContext,
+//     resolveDID: did => {
+//       console.log('🚀 ~ file: ed25519.ts:64 ~ did:', did);
+//       return resolveDID(did);
+//     },
+//   });
+//   await ed25519.init(keyPair);
 
-  const vcData = {
-    '@context': [
-      'https://www.w3.org/2018/credentials/v1',
-      {
-        AlumniCredential: 'https://schema.org#AlumniCredential',
-        alumniOf: 'https://schema.org#alumniOf',
-      },
-    ],
-    id: 'http://example.edu/credentials/1872',
-    type: ['VerifiableCredential', 'AlumniCredential'],
-    issuer: issuer,
-    issuanceDate: '2019-12-03T12:19:52Z',
-    expirationDate: '2020-12-03T12:19:52Z',
-    credentialSubject: {
-      id: 'did:example:holder',
-      alumniOf: 'Example University',
-    },
-  };
-  const vcResult = await ed25519.createVc(vcData);
-  const verify = await ed25519.verifyVc(vcResult.items[0]);
-  console.log('🚀 ~ file: ed25519.ts:78 ~ verify:', verify);
-})();
+//   const vcData = {
+//     '@context': [
+//       'https://www.w3.org/2018/credentials/v1',
+//       {
+//         AlumniCredential: 'https://schema.org#AlumniCredential',
+//         alumniOf: 'https://schema.org#alumniOf',
+//       },
+//     ],
+//     id: 'http://example.edu/credentials/1872',
+//     type: ['VerifiableCredential', 'AlumniCredential'],
+//     issuer: issuer,
+//     issuanceDate: '2019-12-03T12:19:52Z',
+//     expirationDate: '2020-12-03T12:19:52Z',
+//     credentialSubject: {
+//       id: 'did:example:holder',
+//       alumniOf: 'Example University',
+//     },
+//   };
+//   const vcResult = await ed25519.createVc(vcData);
+//   const verify = await ed25519.verifyVc(vcResult.items[0]);
+//   console.log('🚀 ~ file: ed25519.ts:78 ~ verify:', verify);
+// })();

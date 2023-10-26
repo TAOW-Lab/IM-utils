@@ -74,8 +74,12 @@ console.log('🚀 ~ file: ec.ts:72 ~ publicKey:', pubKeyBuffer.toString('hex'));
 
 const ec = new eddsa('ed25519');
 const keySign = ec.keyFromSecret(Buffer.from(wallet.secretKey.slice(0, 32)));
+console.log(
+  '🚀 ~ file: ec.ts:77 ~ wallet.secretKey.slice(0, 32):',
+  Buffer.from(wallet.secretKey.slice(0, 32)).toString('hex')
+);
 const msgHash =
-  '123498d6557b407f4fd02f60fefbb53467add1a020f4ea617f7c292cacf8573911492687461ea9a0f61ed12d9601c1ff7c914cb257dbdd78f1f51c36345dfada';
+  '5c73cd7411501f6d104a105d71a63f518cb9c925b73d508a6d13e13fbb43c695c6c090943241f50562dfa90d70a446635af99df6dd6745aa20aec8a55f09ce39';
 const signature = keySign.sign(msgHash).toHex();
 console.log('🚀 ~ file: ec.ts:84 ~ signature:', signature);
 
